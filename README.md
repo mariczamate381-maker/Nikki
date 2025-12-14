@@ -1,27 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Game Boost – Telegram Mini App</title>
+* {
+  box-sizing: border-box;
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
 
-  <link rel="stylesheet" href="style.css" />
-  <script src="https://telegram.org/js/telegram-web-app.js"></script>
-</head>
-<body>
+body {
+  margin: 0;
+  background: #0f0f10;
+  color: #ffffff;
+}
 
-  <div class="app">
-    <header>
-      <h1>Game Boost</h1>
-      <p>Upgrade your game faster</p>
-    </header>
+.app {
+  padding: 24px;
+  text-align: center;
+}
 
-    <main>
-      <button id="boostBtn">Start Boost</button>
-      <p id="status">Ready</p>
-    </main>
-  </div>
+header h1 {
+  font-size: 28px;
+  margin-bottom: 4px;
+}
 
-  <script src="app.js"></script>
-</body>
-</html>
+header p {
+  font-size: 14px;
+  opacity: 0.6;
+}
+
+button {
+  margin-top: 32px;
+  padding: 14px 24px;
+  border-radius: 14px;
+  border: none;
+  background: #007aff;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+#status {
+  margin-top: 20px;
+  font-size: 14px;
+  opacity: 0.8;
+}
