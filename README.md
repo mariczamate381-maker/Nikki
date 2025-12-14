@@ -1,17 +1,35 @@
-# 🅿️ aythena-in-car-parking-assist: Бортовая Система Помощи при Парковке
+// embedded_core/lib/models/adas_model.dart (Дополнение)
 
-Этот репозиторий содержит архитектуру для бортовой системы помощи водителю (ADAS), которая использует сенсорное слияние (Sensor Fusion) и расчет траектории для обеспечения безопасной и эффективной парковки.
+// Конечный автомат: этапы системы помощи при парковке
+enum ParkingState {
+  off, // Система выключена
+  searching, // Поиск подходящего места
+  spotEvaluated, // Место найдено и оценено (ждет подтверждения водителя)
+  activeManeuvering, // Активное выполнение маневров (автоматическое управление)
+  emergencyBraking, // Аварийная остановка (обнаружено критическое препятствие)
+  maneuverComplete, // Парковка завершена, ждет P (парковка)
+}
 
-## Архитектура
-* **Core Logic:** Dart/C++ (имитация Embedded-системы)
-* **Data Layer:** Dart/Flutter (для визуализации и имитации HMI)
+// Запланированная траектория (Добавление индекса для отслеживания прогресса)
+class Trajectory {
+  final List<TrajectoryPoint> points;
+  final int currentPointIndex; // Точка, к которой стремится автомобиль
 
-## 🔑 Ключевые принципы
-1.  **Sensor Fusion:** Объединение данных ультразвука (точность дистанции) и камер (визуализация).
-2.  **Real-Time Trajectory Planning:** Постоянный расчет оптимальной траектории и вероятности столкновения.
-3.  **HMI Integration:** Четкая визуализация для водителя (Human-Machine Interface).
-4.  **Low-Latency Performance:** Критически важная скорость обработки данных.
+  Trajectory({required this.points, this.currentPointIndex = 0});
+  
+  bool get isFinished => currentPointIndex >= points.length;
+}
 
----
-
-## 📂 Структура проекта
+// Расширение Obstacle для более детальной визуализации
+class Obstacle {
+  final String id;
+  final double distanceCm;
+  final double lateralOffsetCm;
+  final HazardLevel hazard;
+  final double collisionProbability; // 0.0 до 1.0 (новая метрика)
+  
+  Obstacle({
+    required this.id, required this.distanceCm, required this.lateralOffsetCm, 
+    this.hazard = HazardLevel.none, this.collisionProbability = 0.0
+  });
+}
