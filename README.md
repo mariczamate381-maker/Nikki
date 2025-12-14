@@ -1,35 +1,27 @@
-// embedded_core/lib/models/adas_model.dart (Дополнение)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Game Boost – Telegram Mini App</title>
 
-// Конечный автомат: этапы системы помощи при парковке
-enum ParkingState {
-  off, // Система выключена
-  searching, // Поиск подходящего места
-  spotEvaluated, // Место найдено и оценено (ждет подтверждения водителя)
-  activeManeuvering, // Активное выполнение маневров (автоматическое управление)
-  emergencyBraking, // Аварийная остановка (обнаружено критическое препятствие)
-  maneuverComplete, // Парковка завершена, ждет P (парковка)
-}
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
 
-// Запланированная траектория (Добавление индекса для отслеживания прогресса)
-class Trajectory {
-  final List<TrajectoryPoint> points;
-  final int currentPointIndex; // Точка, к которой стремится автомобиль
+  <div class="app">
+    <header>
+      <h1>Game Boost</h1>
+      <p>Upgrade your game faster</p>
+    </header>
 
-  Trajectory({required this.points, this.currentPointIndex = 0});
-  
-  bool get isFinished => currentPointIndex >= points.length;
-}
+    <main>
+      <button id="boostBtn">Start Boost</button>
+      <p id="status">Ready</p>
+    </main>
+  </div>
 
-// Расширение Obstacle для более детальной визуализации
-class Obstacle {
-  final String id;
-  final double distanceCm;
-  final double lateralOffsetCm;
-  final HazardLevel hazard;
-  final double collisionProbability; // 0.0 до 1.0 (новая метрика)
-  
-  Obstacle({
-    required this.id, required this.distanceCm, required this.lateralOffsetCm, 
-    this.hazard = HazardLevel.none, this.collisionProbability = 0.0
-  });
-}
+  <script src="app.js"></script>
+</body>
+</html>
